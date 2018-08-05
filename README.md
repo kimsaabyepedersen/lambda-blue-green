@@ -18,7 +18,7 @@ Observe that it logs the function version. If you do that while making a deploy 
 
 ## Make a deployment fail and rollback
 Follow the steps from the sunshine scenario but also do this as a last step:
-``artillery quick --count 10 -n 10 https://<INSERT VALUE FROM API GATEWAY HERE>.execute-api.<YOUR REGION>.amazonaws.com/Prod/showMyIp?failversion=<THE NEW VERSION>` 
+`artillery quick --count 10 -n 10 https://<INSERT VALUE FROM API GATEWAY HERE>.execute-api.<YOUR REGION>.amazonaws.com/Prod/showMyIp?failversion=<THE NEW VERSION>` 
 
 This fire 100 requests to the API that should trigger an error (see the Java code).
 Now you should observe the the first artillery command should only display the version of the current function and if you go to CodeDeploy you will see that the deployment of the new version has been rolled back.

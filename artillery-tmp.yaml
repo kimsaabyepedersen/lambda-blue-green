@@ -1,8 +1,8 @@
 config:
-  target: "https://<INSERT VALUE FROM API GATEWAY HERE>.execute-api.eu-west-1.amazonaws.com"
+  target: "https://<INSERT VALUE FROM API GATEWAY HERE>.execute-api.<YOUR REGION>.amazonaws.com"
   phases:
   - duration: 600
-    arrivalRate: 2
+    arrivalRate: 1
 scenarios:
 - flow:
   - get:

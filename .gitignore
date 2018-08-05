@@ -3,5 +3,5 @@ packaged.yaml
 .idea
 *.iml
 */target
-build/*
+build/*.jar
 *dependency-reduced-pom.xml

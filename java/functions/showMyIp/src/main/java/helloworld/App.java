@@ -24,6 +24,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
 
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
+        headers.put("X-Custom", "somevalue");
 
         try {
             final String functionVersion = context.getFunctionVersion();

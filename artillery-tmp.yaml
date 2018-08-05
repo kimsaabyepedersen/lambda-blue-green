@@ -1,0 +1,13 @@
+config:
+  target: "https://<INSERT VALUE FROM API GATEWAY HERE>.execute-api.eu-west-1.amazonaws.com"
+  phases:
+  - duration: 600
+    arrivalRate: 2
+scenarios:
+- flow:
+  - get:
+      url: "/Prod/showMyIp"
+      capture:
+        json: "$.function-version"
+        as: "id"
+  - log: "Function version: {{ id }}"

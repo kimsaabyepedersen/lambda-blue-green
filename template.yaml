@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  ContdDeployment
+
+Resources:
+  ShowMyIpFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: build/showMyIp-1.0-SNAPSHOT.jar
+      Handler: helloworld.App::handleRequest
+      Runtime: java8
+      AutoPublishAlias: myAlias
+      DeploymentPreference:
+        Type: Canary10Percent10Minutes
+        Alarms:
+          - !Ref NewVersionErrorMetricGreaterThanZeroAlarm
+      Timeout: 30
+      MemorySize: 512
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /showMyIp
+            Method: get
+
+  NewVersionErrorMetricGreaterThanZeroAlarm:
+    Type: "AWS::CloudWatch::Alarm"
+    Properties:
+      AlarmDescription: Lambda Function Error > 0
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+      - Name: Resource
+        Value: !Sub "${ShowMyIpFunction}:myAlias"
+      - Name: FunctionName
+        Value: !Ref ShowMyIpFunction
+      - Name: ExecutedVersion
+        Value: !GetAtt ShowMyIpFunction.Version.Version
+      EvaluationPeriods: 1
+      MetricName: Errors
+      Namespace: AWS/Lambda
+      Period: 300
+      Statistic: Sum
+      Threshold: 0
+
+Outputs:
+  HelloWorldApi:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/showMyIp/"

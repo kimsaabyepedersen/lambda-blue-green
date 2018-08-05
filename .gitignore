@@ -1,0 +1,7 @@
+artillery.yaml
+packaged.yaml
+.idea
+*.iml
+*/target
+build/*
+*dependency-reduced-pom.xml

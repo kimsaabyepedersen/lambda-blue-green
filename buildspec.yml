@@ -4,6 +4,7 @@ phases:
   pre_build:
     commands:
     - echo Prebuild command
+    - pip install aws-sam-cli
   build:
     commands:
     - echo Build started on `date`

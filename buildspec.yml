@@ -16,5 +16,6 @@ phases:
   post_build:
     commands:
     - echo Build completed on `date`
+    - aws cloudformation deploy --template packaged.yaml --stack-name aliasShifting --capabilities CAPABILITY_IAM
 artifacts:
   files: packaged.yaml

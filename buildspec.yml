@@ -13,10 +13,12 @@ phases:
     - mvn clean install
     - cd -
     - cp java/functions/showMyIp/target/showMyIp-1.0-SNAPSHOT.jar build
-    - aws cloudformation package --template-file template.yaml --kms-key-id $CODEBUILD_KMS_KEY_ID --s3-bucket  codepipeline-eu-west-1-997822486367 --output-template-file  packaged.yaml
+    - echo aws cloudformation package --template-file template.yaml --kms-key-id $CODEBUILD_KMS_KEY_ID --s3-bucket  codepipeline-eu-west-1-997822486367 --output-template-file  packaged.yaml
   post_build:
     commands:
     - echo Build completed on `date`
-    - aws cloudformation deploy --template packaged.yaml --stack-name aliasShifting --capabilities CAPABILITY_IAM
+    - echo aws cloudformation deploy --template packaged.yaml --stack-name aliasShifting --capabilities CAPABILITY_IAM
+    - sam package     --template-file template.yaml     --output-template-file packaged.yaml     --s3-bucket  codepipeline-eu-west-1-997822486367
+    - sam deploy     --template-file packaged.yaml     --stack-name aliasShifting     --capabilities CAPABILITY_IAM
 artifacts:
   files: packaged.yaml

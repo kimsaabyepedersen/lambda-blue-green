@@ -15,8 +15,7 @@ phases:
     - cp java/functions/showMyIp/target/showMyIp-1.0-SNAPSHOT.jar build
     - echo $KEY_ID
     - echo $CODEBUILD_KMS_KEY_ID
-    - echo aws cloudformation package --template-file template.yaml --s3-bucket --kms-key-id $KEY_ID codepipeline-eu-west-1-997822486367 > packaged.yaml
-    - aws cloudformation package --template-file template.yaml --s3-bucket --kms-key-id $KEY_ID codepipeline-eu-west-1-997822486367 > packaged.yaml
+    - aws cloudformation package --template-file template.yaml --kms-key-id $CODEBUILD_KMS_KEY_ID --s3-bucket  codepipeline-eu-west-1-997822486367 > packaged.yaml
   post_build:
     commands:
     - echo Build completed on `date`

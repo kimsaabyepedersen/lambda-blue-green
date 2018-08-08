@@ -13,7 +13,7 @@ phases:
     - cd -
     - ls
     - cp java/functions/showMyIp/target/showMyIp-1.0-SNAPSHOT.jar build
-    - aws cloudformation package --template-file template.yaml --s3-bucket alias-lambda-taffic-shifting > packaged.yaml
+    - aws cloudformation package --template-file template.yaml --s3-bucket codepipeline-eu-west-1-997822486367 > packaged.yaml
   post_build:
     commands:
     - echo Build completed on `date`

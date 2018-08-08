@@ -3,11 +3,15 @@ version: 0.2
 phases:
   pre_build:
     commands:
-    - echo Logging in to Amazon ECR...
+    - echo Prebuild command
   build:
     commands:
     - echo Build started on `date`
-    - sh build.sh
+    - ls
+    - cd java/functions/showMyIp
+    - mvn clean install
+    - cd -
+    - ls
     - cp java/functions/showMyIp/target/showMyIp-1.0-SNAPSHOT.jar build
     - sam package     --template-file template.yaml     --output-template-file packaged.yaml     --s3-bucket  alias-lambda-taffic-shifting
 
